@@ -7,16 +7,19 @@
  */
 
 void cmd_exe(char **argv){
-    char *command = NULL;
+	char *command = NULL;
+	char *actual_command = NULL;
 
-    if (argv){
-        /* get the command */
-        command = argv[0];
+	if (argv){
+		/* get the command */
+		command = argv[0];
 
-        /* execute the command with execve */
-        if (execve(command, argv, NULL) == -1){
-            perror("./shell");
-        };
-    }
+		/* generate the path */
+		actual_command = get_location(command);
 
+		/*execute the command with execve */
+		if (execve(actual_command, argv, NULL) == -1){
+			perror("./shell");
+		};
+    	}
 }
